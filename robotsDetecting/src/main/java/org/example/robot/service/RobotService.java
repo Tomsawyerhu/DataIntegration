@@ -25,7 +25,9 @@ public class RobotService {
 
 
     public int getCertainRobotsNum(RobotTypeEnums robotType){
-        Set<String> users=getDistinctActionUsers();
+        Set<String> users=null;
+        if(robotType==RobotTypeEnums.SPIDER){users=getDistinctLoginUsers();}
+        else{users=getDistinctActionUsers();}
         int count=0;
         for(String user:users){
             if(judgeService.isCertainRobot(user,robotType)){count+=1;}
