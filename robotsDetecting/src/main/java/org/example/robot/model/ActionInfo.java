@@ -1,7 +1,6 @@
 package org.example.robot.model;
 
 import javax.persistence.Column;
-import java.text.DateFormat;
 
 public class ActionInfo {
     @Column(name = "sessionid")
