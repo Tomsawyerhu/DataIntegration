@@ -1,25 +1,31 @@
 package org.example.robot.service;
 
 import org.example.robot.constants.RobotTypeEnums;
+import org.example.robot.dao.ActionDao;
+import org.example.robot.dao.LoginDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Service
 public class RobotService {
 
-    final RobotJudgeService judgeService;
-
-    private Set<String> distinctUsers=null;
+    @Autowired
+    private RobotJudgeService judgeService;
 
     @Autowired
-    public RobotService(RobotJudgeService judgeService) {
-        this.judgeService = judgeService;
-    }
+    private ActionDao actionDao;
+    @Autowired
+    private LoginDao loginDao;
+
+    private Set<String> distinctActionUsers=null;
+    private Set<String> distinctLoginUsers=null;
+
 
     public int getCertainRobotsNum(RobotTypeEnums robotType){
-        Set<String> users=getDistinctUsers();
+        Set<String> users=getDistinctActionUsers();
         int count=0;
         for(String user:users){
             if(judgeService.isCertainRobot(user,robotType)){count+=1;}
@@ -27,11 +33,17 @@ public class RobotService {
         return count;
     }
 
-    private Set<String> getDistinctUsers(){
-        if(distinctUsers!=null){return distinctUsers;}
-        else{
-            //todo 查数据库 缓存
-            return null;
+    private Set<String> getDistinctActionUsers(){
+        if(distinctActionUsers==null){
+            this.distinctActionUsers=new HashSet<String>(actionDao.findDistinctUserId());
         }
+        return distinctActionUsers;
+    }
+
+    private Set<String> getDistinctLoginUsers(){
+        if(distinctLoginUsers==null){
+            this.distinctLoginUsers= new HashSet<String>(loginDao.findDistinctUserId());
+        }
+        return distinctLoginUsers;
     }
 }

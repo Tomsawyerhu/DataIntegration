@@ -8,4 +8,5 @@ import java.util.List;
 @Component
 public interface LoginDao {
     List<LoginInfo> findLoginsByUserId(String userid);
+    List<String> findDistinctUserId();
 }
