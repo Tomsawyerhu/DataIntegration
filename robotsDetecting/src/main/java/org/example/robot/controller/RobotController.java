@@ -6,14 +6,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class RobotController {
     @GetMapping("/attackers")
-    public void detectAttackers(){}
+    public void detectAttackers(){
+        //todo
+    }
 
     @GetMapping("/spiders")
-    public void detectSpiders(){}
+    public void detectSpiders(){
+        //todo
+    }
 
     @GetMapping("/clickfarmers")
-    public void detectClickFarmers(){}
+    public void detectClickFarmers(){
+        //todo
+    }
 
     @GetMapping("/competitors")
-    public void detectOrderCompetitors(){}
+    public void detectOrderCompetitors(){
+        //todo
+    }
 }

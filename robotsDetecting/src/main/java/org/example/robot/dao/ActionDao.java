@@ -8,4 +8,5 @@ import java.util.List;
 @Component
 public interface ActionDao {
     List<ActionInfo> findActionsByUserId(String userid);
+    List<String> findDistinctUserId();
 }
