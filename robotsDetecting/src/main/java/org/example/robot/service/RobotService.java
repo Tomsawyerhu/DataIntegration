@@ -6,7 +6,9 @@ import org.example.robot.dao.LoginDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -22,17 +24,34 @@ public class RobotService {
 
     private Set<String> distinctActionUsers=null;
     private Set<String> distinctLoginUsers=null;
+    private Set<String> distinctActionIp=null;
+    private Set<String> distinctLoginIp=null;
 
 
-    public int getCertainRobotsNum(RobotTypeEnums robotType){
+    public List<String> getCertainRobotsNum(RobotTypeEnums robotType){
         Set<String> users=null;
-        if(robotType==RobotTypeEnums.SPIDER){users=getDistinctLoginUsers();}
-        else{users=getDistinctActionUsers();}
-        int count=0;
-        for(String user:users){
-            if(judgeService.isCertainRobot(user,robotType)){count+=1;}
+        Set<String> ips=null;
+        boolean flag=false;
+        if(robotType==RobotTypeEnums.ATTACKER){
+            ips=getDistinctLoginIp();
         }
-        return count;
+        else if(robotType==RobotTypeEnums.SPIDER){ips=getDistinctActionIp();}
+        else{
+            users=getDistinctActionUsers();
+            flag=true;
+        }
+        List<String> robotsInfo=new ArrayList<String>();
+        if(flag){
+            for(String user:users){
+                if(judgeService.isCertainRobotByUserId(user,robotType)){robotsInfo.add(user);}
+            }
+        }else{
+            for(String ip:ips){
+                if(judgeService.isCertainRobotByIp(ip,robotType)){robotsInfo.add(ip);}
+            }
+        }
+
+        return robotsInfo;
     }
 
     private Set<String> getDistinctActionUsers(){
@@ -47,5 +66,19 @@ public class RobotService {
             this.distinctLoginUsers= new HashSet<String>(loginDao.findDistinctUserId());
         }
         return distinctLoginUsers;
+    }
+
+    private Set<String> getDistinctActionIp(){
+        if(distinctActionIp==null){
+            this.distinctActionIp=new HashSet<String>(actionDao.findDistinctIp());
+        }
+        return distinctActionIp;
+    }
+
+    private Set<String> getDistinctLoginIp(){
+        if(distinctLoginIp==null){
+            this.distinctLoginIp= new HashSet<String>(loginDao.findDistinctIp());
+        }
+        return distinctLoginIp;
     }
 }

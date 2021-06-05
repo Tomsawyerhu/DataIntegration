@@ -9,4 +9,6 @@ import java.util.List;
 public interface LoginDao {
     List<LoginInfo> findLoginsByUserId(String userid);
     List<String> findDistinctUserId();
+    List<LoginInfo> findLoginsByIp(String ip);
+    List<String> findDistinctIp();
 }

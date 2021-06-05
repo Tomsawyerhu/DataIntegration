@@ -12,7 +12,15 @@ public class AttackRobotJudge extends AbstractRobotJudge {
     }
 
     public boolean isRobot(List<LoginInfo> loginInfos, List<ActionInfo> actionInfos) {
-        //todo
-        return false;
+        //登录成功率小于预定值
+        float successRate=0.5f;
+        int sum=loginInfos.size();
+        int successTimes=0;
+        for(LoginInfo loginInfo:loginInfos){
+            if(loginInfo.getSuccess()==1){
+                successTimes+=1;
+            }
+        }
+        return (float)successTimes/(float)sum < successRate;
     }
 }

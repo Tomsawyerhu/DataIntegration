@@ -20,10 +20,17 @@ public class RobotJudgeService {
     @Autowired
     LoginDao loginDao;
 
-    public boolean isCertainRobot(String userId, RobotTypeEnums robotType){
+    public boolean isCertainRobotByUserId(String userId, RobotTypeEnums robotType){
         AbstractRobotJudge judge= RobotJudgeFactory.getRobotJudgeByType(robotType);
         List<ActionInfo> actionInfos=actionDao.findActionsByUserId(userId);
         List<LoginInfo> loginInfos=loginDao.findLoginsByUserId(userId);
+        return judge.isRobot(loginInfos,actionInfos);
+    }
+
+    public boolean isCertainRobotByIp(String ip, RobotTypeEnums robotType){
+        AbstractRobotJudge judge= RobotJudgeFactory.getRobotJudgeByType(robotType);
+        List<ActionInfo> actionInfos=actionDao.findActionsByIp(ip);
+        List<LoginInfo> loginInfos=loginDao.findLoginsByIp(ip);
         return judge.isRobot(loginInfos,actionInfos);
     }
 }

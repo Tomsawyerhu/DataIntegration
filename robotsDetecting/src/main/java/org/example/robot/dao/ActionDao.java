@@ -9,4 +9,6 @@ import java.util.List;
 public interface ActionDao {
     List<ActionInfo> findActionsByUserId(String userid);
     List<String> findDistinctUserId();
+    List<ActionInfo> findActionsByIp(String ip);
+    List<String> findDistinctIp();
 }

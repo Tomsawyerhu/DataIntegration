@@ -68,4 +68,14 @@ public class ActionInfo {
     public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
     }
+
+    public boolean isBuyAction(){
+        return this.actionType.equals("buy");
+    }
+
+    public boolean isGetDetailAction(){
+        return this.actionType.equals("getDetail");
+    }
+
+
 }
