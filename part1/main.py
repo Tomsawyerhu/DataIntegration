@@ -45,8 +45,14 @@ def get_data_from_database(conn, sql):
     cursor = conn.cursor()
     cursor.execute(sql)
     res = cursor.fetchall()
+
     cursor.close()
     print(res)
+    print(res[0][1])
+    try:
+        print(eval(str(res)))
+    except Exception:
+        print(" eval error")
     return res
 
 
@@ -117,12 +123,12 @@ if __name__ == '__main__':
     # 获取数据库连接
     conn = get_conn('localhost', "root", "mysql057048", "di")
     # 将流数据添加到数据库
-    i = 9
-    while i <= 10:
-        fname = "data" + str(i) + ".txt"
-        print(fname)
-        add_float_data_to_database(fname, conn)
-        i = i + 1
+    # i = 1
+    # while i <= 10:
+    #     fname = "data" + str(i) + ".txt"
+    #     print(fname)
+    #     add_float_data_to_database(fname, conn)
+    #     i = i + 1
 
     # 平台流量分析
     # 取uv,pv折线图
@@ -164,30 +170,73 @@ if __name__ == '__main__':
     # 获取数据并绘制折线图
     # resdayuv = get_data_from_database(conn, dayuvsql)
     # resdaypv = get_data_from_database(conn, daypvsql)
-    # data = "[" + str(resdayuv) + "," + (resdaypv) + "]"
+    # data.append(resdayuv)
+    # data.append(resdaypv)
     # labels = ["uv_daily", "pv_daily"]
     # line_chart(eval(data), labels)
     #
     # reshouruv = get_data_from_database(conn, houruvsql)
     # reshourpv = get_data_from_database(conn, hourpvsql)
-    # data = "[" + str(reshouruv) + "," + str(reshourpv) + "]"
+    # data.append(reshouruv)
+    # data.append(reshourpv)
+
     # labels = ["uv_hourly", "pv_hourly"]
     # line_chart(eval(data), labels)
 
     # # 用户行为分析
     # # 用户日行为分析
-    # daytypesql = "select day(op_time) as 'day'," \
+
+    #     (('11-25', 4102045, 162666, 235304, 131503),
+    #      ('11-26', 4404361, 115566, 267455, 133248),
+    #      ('11-27', 15123314, 567400, 875796, 475371),
+    #      ('11-28', 6156174, 248873, 353577, 198938),
+    #      ('11-29', 9202846, 330326, 535772, 288747),
+    #      ('11-30', 2683907, 72627, 167278, 82382),
+    #      ('12-01', 9979214, 325695, 623342, 307114),
+    #      ('12-02', 1087542, 49092, 64526, 32860),
+    #      ('12-03', 11381, 343, 702, 400))
+    #
+    # ((0, 1841840, 64732, 104781, 59933),
+    #  (1, 955029, 44736, 53456, 31783),
+    #  (2, 564113, 36801, 29135, 1732),
+    #  (3, 401772, 34898, 20576, 11694),
+    #  (4, 364763, 33624, 18627, 9671),
+    #  (5, 443430, 34636, 24765, 12378),
+    #  (6, 911197, 42880, 55629, 27969),
+    #  (7, 1409020, 53741, 86544, 45530),
+    #  (8, 1893108, 71703, 112654, 62831),
+    #  (9, 2356506, 92533, 138614, 78406),
+    #  (10, 2787074, 112218, 163742, 92496),
+    #  (11, 2684655, 107285, 160009, 89775),
+    #  (12, 2785714, 106312, 160503, 89368),
+    #  (13, 3027441, 110002, 176807, 96080),
+    #  (14, 2885520, 104926, 164808, 90348),
+    #  (15, 2485186, 91154, 143955, 77911),
+    #  (16, 2345763, 86091, 138739, 74339),
+    #  (17, 2518367, 87333, 148986, 80703),
+    #  (18, 2696404, 89594, 152008, 80940),
+    #  (19, 3156024, 96636, 177289, 91427),
+    #  (20, 3326934, 91601, 194643, 94208),
+    #  (21, 4015242, 102160, 240732, 114134),
+    #  (22, 3952057, 98635, 253335, 120979),
+    #  (23, 2943625, 78357, 203415, 100334))
+
+    # daytypesql = "select DATE_FORMAT(op_time,'%m-%d') as 'day'," \
+    #              "sum(case when type='getDetail' then 1 else 0 end) as 'detail_daily'," \
     #              "sum(case when type='buy' then 1 else 0 end) as 'buy_daily'," \
     #              "sum(case when type='cart' then 1 else 0 end) as 'cart_daily'," \
     #              "sum(case when type='favor' then 1 else 0 end) as 'fav_daily'" \
     #              "from floatdata group by day"
-    # # 用户分时行为分析
+    # # # 用户分时行为分析
+    #
     # hourtypesql = "select hour(op_time) as 'hour'," \
+    #               "sum(case when type='getDetail' then 1 else 0 end) as 'detail_hourly'," \
     #               "sum(case when type='buy' then 1 else 0 end) as 'buy_hourly'," \
     #               "sum(case when type='cart' then 1 else 0 end) as 'cart_hourly'," \
     #               "sum(case when type='favor' then 1 else 0 end) as 'fav_hourly'" \
     #               "from floatdata group by hour"
-    #
+    # get_data_from_database(conn, daytypesql)
+    # get_data_from_database(conn, hourtypesql)
     # 绘制折线图
     # data = []
     # labels = ["buy_daily", "cart_daily", "fav_daily"]
@@ -195,7 +244,7 @@ if __name__ == '__main__':
     # for i in range(1, len(res[0])):
     #     tmp = []
     #     for j in range(len(res)):
-    #         tmp.append((res[i][j], res[j][0]))
+    #         tmp.append((res[j][i], res[j][0]))
     #     data.append(tmp)
     # line_chart(data,labels)
     #
@@ -206,6 +255,11 @@ if __name__ == '__main__':
     # for i in range(1, len(res[0])):
     #     tmp = []
     #     for j in range(len(res)):
-    #         tmp.append((res[i][j], res[j][0]))
+    #         tmp.append((res[j][i], res[j][0]))
     #     data.append(tmp)
     # line_chart(data,labels)
+
+    itembuyssql = "SELECT item_id, sum( CASE WHEN type = 'buy' THEN 1 ELSE 0 END ) AS 'sumbuy' FROM floatdata  GROUP BY item_id having (sumbuy>0) ORDER BY sumbuy"
+    labels = ["buy_of_item"]
+    res = get_data_from_database(conn, itembuyssql)
+    line_chart(res, labels)
