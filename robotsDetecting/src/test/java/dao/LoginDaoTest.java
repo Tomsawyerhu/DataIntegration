@@ -20,4 +20,24 @@ public class LoginDaoTest {
         System.out.println(loginDao.findLoginsByUserId(userId).size());
     }
 
+    @Test
+    public void findLoginsByIpTest(){
+        String ip="139.210.43.58";
+        System.out.println(loginDao.findLoginsByIp(ip).size());
+    }
+
+    @Test
+    public void findDistinctIpTest(){
+        for(String s:loginDao.findDistinctIp()){
+            System.out.println(s);
+        }
+    }
+
+    @Test
+    public void findDistinctUserIdTest(){
+        for(String s:loginDao.findDistinctUserId()){
+            System.out.println(s);
+        }
+    }
+
 }

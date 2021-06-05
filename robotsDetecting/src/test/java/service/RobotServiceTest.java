@@ -21,4 +21,25 @@ public class RobotServiceTest {
             System.out.println(s);
         }
     }
+
+    @Test
+    public void getCertainRobotsTest2(){
+        for(String s:robotService.getCertainRobots(RobotTypeEnums.SPIDER)){
+            System.out.println(s);
+        }
+    }
+
+    @Test
+    public void getCertainRobotsTest3(){
+        for(String s:robotService.getCertainRobots(RobotTypeEnums.COMPETITOR)){
+            System.out.println(s);
+        }
+    }
+
+    @Test
+    public void getCertainRobotsTest4(){
+        for(String s:robotService.getCertainRobots(RobotTypeEnums.CLICKFARMER)){
+            System.out.println(s);
+        }
+    }
 }

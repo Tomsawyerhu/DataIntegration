@@ -16,7 +16,7 @@
         SELECT * FROM actions WHERE userid=#{userid}
     </select>
 
-    <select id="findActionsBySessionId" resultType="String" >
+    <select id="findActionsBySessionId" parameterType="String" resultMap="ActionInfo" >
         SELECT * FROM actions WHERE sessionid=#{sessionid}
     </select>
 

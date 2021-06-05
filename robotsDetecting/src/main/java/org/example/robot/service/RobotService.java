@@ -16,9 +16,7 @@ public class RobotService {
 
     @Autowired
     private RobotJudgeService judgeService;
-
-    @Autowired
-    private ActionDao actionDao;
+    
     @Autowired
     private LoginDao loginDao;
 

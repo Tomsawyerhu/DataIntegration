@@ -20,4 +20,10 @@ public class ActionDaoTest {
         System.out.println(actionDao.findActionsByUserId(userId).size());
     }
 
+    @Test
+    public void findActionsBySessionIdTest(){
+        String sessionId="000000";
+        System.out.println(actionDao.findActionsBySessionId(sessionId).size());
+    }
+
 }
