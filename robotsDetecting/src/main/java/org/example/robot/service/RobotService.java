@@ -22,25 +22,22 @@ public class RobotService {
     @Autowired
     private LoginDao loginDao;
 
-    private Set<String> distinctActionUsers=null;
     private Set<String> distinctLoginUsers=null;
-    private Set<String> distinctActionIp=null;
     private Set<String> distinctLoginIp=null;
 
 
-    public List<String> getCertainRobotsNum(RobotTypeEnums robotType){
+    public List<String> getCertainRobots(RobotTypeEnums robotType){
         Set<String> users=null;
         Set<String> ips=null;
         boolean flag=false;
-        if(robotType==RobotTypeEnums.ATTACKER){
+        if(robotType==RobotTypeEnums.ATTACKER||robotType==RobotTypeEnums.SPIDER){
             ips=getDistinctLoginIp();
         }
-        else if(robotType==RobotTypeEnums.SPIDER){ips=getDistinctActionIp();}
         else{
-            users=getDistinctActionUsers();
+            users=getDistinctLoginUsers();
             flag=true;
         }
-        List<String> robotsInfo=new ArrayList<String>();
+        List<String> robotsInfo= new ArrayList<>();
         if(flag){
             for(String user:users){
                 if(judgeService.isCertainRobotByUserId(user,robotType)){robotsInfo.add(user);}
@@ -54,25 +51,12 @@ public class RobotService {
         return robotsInfo;
     }
 
-    private Set<String> getDistinctActionUsers(){
-        if(distinctActionUsers==null){
-            this.distinctActionUsers=new HashSet<String>(actionDao.findDistinctUserId());
-        }
-        return distinctActionUsers;
-    }
 
     private Set<String> getDistinctLoginUsers(){
         if(distinctLoginUsers==null){
             this.distinctLoginUsers= new HashSet<String>(loginDao.findDistinctUserId());
         }
         return distinctLoginUsers;
-    }
-
-    private Set<String> getDistinctActionIp(){
-        if(distinctActionIp==null){
-            this.distinctActionIp=new HashSet<String>(actionDao.findDistinctIp());
-        }
-        return distinctActionIp;
     }
 
     private Set<String> getDistinctLoginIp(){

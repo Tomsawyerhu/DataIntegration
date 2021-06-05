@@ -79,4 +79,6 @@ public class LoginInfo {
     public void setSuccess(int success) {
         this.success = success;
     }
+
+    public boolean isSuccess(){return success==1;}
 }

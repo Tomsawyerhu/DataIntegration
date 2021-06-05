@@ -16,4 +16,8 @@
         SELECT * FROM actions WHERE userid=#{userid}
     </select>
 
+    <select id="findActionsBySessionId" resultType="String" >
+        SELECT * FROM actions WHERE sessionid=#{sessionid}
+    </select>
+
 </mapper>

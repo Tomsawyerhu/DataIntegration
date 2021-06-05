@@ -10,7 +10,10 @@ import org.example.robot.strategy.RobotJudgeFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class RobotJudgeService {
@@ -29,8 +32,15 @@ public class RobotJudgeService {
 
     public boolean isCertainRobotByIp(String ip, RobotTypeEnums robotType){
         AbstractRobotJudge judge= RobotJudgeFactory.getRobotJudgeByType(robotType);
-        List<ActionInfo> actionInfos=actionDao.findActionsByIp(ip);
         List<LoginInfo> loginInfos=loginDao.findLoginsByIp(ip);
+        List<ActionInfo> actionInfos=new ArrayList<>();
+        Set<String> sessionIds=new HashSet<>();
+        for(LoginInfo loginInfo:loginInfos){
+            if(loginInfo.isSuccess()&&!sessionIds.contains(loginInfo.getSessionId())){
+                actionInfos.addAll(actionDao.findActionsBySessionId(loginInfo.getSessionId()));
+                sessionIds.add(loginInfo.getSessionId());
+            }
+        }
         return judge.isRobot(loginInfos,actionInfos);
     }
 }

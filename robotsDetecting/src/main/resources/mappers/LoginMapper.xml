@@ -17,4 +17,16 @@
         SELECT * FROM logins WHERE userid=#{userid}
     </select>
 
+    <select id="findLoginsByIp" parameterType="String" resultMap="LoginInfo">
+        SELECT * FROM logins WHERE ip=#{ip}
+    </select>
+
+    <select id="findDistinctUserId" parameterType="String" resultType="String">
+        SELECT DISTINCT userid FROM logins
+    </select>
+
+    <select id="findDistinctIp" parameterType="String" resultType="String">
+        SELECT DISTINCT ip FROM logins
+    </select>
+
 </mapper>
