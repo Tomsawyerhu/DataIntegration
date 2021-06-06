@@ -1,7 +1,6 @@
 package org.example.robot.service;
 
 import org.example.robot.constants.RobotTypeEnums;
-import org.example.robot.dao.ActionDao;
 import org.example.robot.dao.LoginDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +15,7 @@ public class RobotService {
 
     @Autowired
     private RobotJudgeService judgeService;
-    
+
     @Autowired
     private LoginDao loginDao;
 
@@ -39,10 +38,12 @@ public class RobotService {
         if(flag){
             for(String user:users){
                 if(judgeService.isCertainRobotByUserId(user,robotType)){robotsInfo.add(user);}
+                System.out.println("done");
             }
         }else{
             for(String ip:ips){
                 if(judgeService.isCertainRobotByIp(ip,robotType)){robotsInfo.add(ip);}
+                System.out.println("done");
             }
         }
 
@@ -50,14 +51,14 @@ public class RobotService {
     }
 
 
-    private Set<String> getDistinctLoginUsers(){
+    public Set<String> getDistinctLoginUsers(){
         if(distinctLoginUsers==null){
             this.distinctLoginUsers= new HashSet<String>(loginDao.findDistinctUserId());
         }
         return distinctLoginUsers;
     }
 
-    private Set<String> getDistinctLoginIp(){
+    public Set<String> getDistinctLoginIp(){
         if(distinctLoginIp==null){
             this.distinctLoginIp= new HashSet<String>(loginDao.findDistinctIp());
         }

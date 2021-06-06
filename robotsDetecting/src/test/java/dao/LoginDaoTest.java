@@ -28,16 +28,12 @@ public class LoginDaoTest {
 
     @Test
     public void findDistinctIpTest(){
-        for(String s:loginDao.findDistinctIp()){
-            System.out.println(s);
-        }
+        System.out.println(loginDao.findDistinctIp().size());
     }
 
     @Test
     public void findDistinctUserIdTest(){
-        for(String s:loginDao.findDistinctUserId()){
-            System.out.println(s);
-        }
+        System.out.println(loginDao.findDistinctUserId().size());
     }
 
 }
