@@ -21,11 +21,11 @@
         SELECT * FROM logins WHERE ip=#{ip}
     </select>
 
-    <select id="findDistinctUserId" resultType="String">
+    <select id="findDistinctUserId" parameterType="String" resultType="String">
         SELECT DISTINCT userid FROM logins
     </select>
 
-    <select id="findDistinctIp" resultType="String">
+    <select id="findDistinctIp" parameterType="String" resultType="String">
         SELECT DISTINCT ip FROM logins
     </select>
 

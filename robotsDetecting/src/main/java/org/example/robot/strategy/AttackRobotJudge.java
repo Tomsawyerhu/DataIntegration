@@ -21,6 +21,7 @@ public class AttackRobotJudge extends AbstractRobotJudge {
                 successTimes+=1;
             }
         }
+        //System.out.println((float)successTimes/(float)sum);
         return (float)successTimes/(float)sum < successRate;
     }
 }

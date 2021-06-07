@@ -16,8 +16,10 @@ public class ActionDaoTest {
 
     @Test
     public void findActionsByUserIdTest(){
+        long current=System.currentTimeMillis();
         String userId="367135";
         System.out.println(actionDao.findActionsByUserId(userId).size());
+        System.out.println(System.currentTimeMillis()-current);
     }
 
     @Test

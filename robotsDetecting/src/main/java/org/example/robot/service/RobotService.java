@@ -37,13 +37,18 @@ public class RobotService {
         List<String> robotsInfo= new ArrayList<>();
         if(flag){
             for(String user:users){
-                if(judgeService.isCertainRobotByUserId(user,robotType)){robotsInfo.add(user);}
-                System.out.println("done");
+                if(judgeService.isCertainRobotByUserId(user,robotType)){
+                    robotsInfo.add(user);
+                    System.out.println("yes");
+                }
             }
         }else{
             for(String ip:ips){
-                if(judgeService.isCertainRobotByIp(ip,robotType)){robotsInfo.add(ip);}
-                System.out.println("done");
+                if(judgeService.isCertainRobotByIp(ip,robotType)){
+                    robotsInfo.add(ip);
+                    System.out.println("yes");
+                }
+
             }
         }
 
