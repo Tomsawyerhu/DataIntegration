@@ -4,22 +4,22 @@ import javax.persistence.Column;
 
 public class ActionInfo {
     @Column(name = "sessionid")
-    private String sessionId;
+    private String sessionId=null;
 
     @Column(name = "actiontime")
-    private String actionTime;
+    private String actionTime=null;
 
     @Column(name = "actiontype")
-    private String actionType;
+    private String actionType=null;
 
     @Column(name="userid")
-    private String userId;
+    private String userId=null;
 
     @Column(name = "itemid")
-    private String itemId;
+    private String itemId=null;
 
     @Column(name="categoryid")
-    private String categoryId;
+    private String categoryId=null;
 
     public String getSessionId() {
         return sessionId;
@@ -77,5 +77,15 @@ public class ActionInfo {
         return this.actionType.equals("getDetail");
     }
 
-
+    @Override
+    public String toString() {
+        return "ActionInfo{" +
+                "sessionId='" + sessionId + '\'' +
+                ", actionTime='" + actionTime + '\'' +
+                ", actionType='" + actionType + '\'' +
+                ", userId='" + userId + '\'' +
+                ", itemId='" + itemId + '\'' +
+                ", categoryId='" + categoryId + '\'' +
+                '}';
+    }
 }

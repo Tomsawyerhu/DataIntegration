@@ -27,6 +27,7 @@ public class RobotJudgeServiceTest {
         System.out.println(judgeService.isCertainRobotByUserId(userId, RobotTypeEnums.COMPETITOR));
     }
 
+
     @Test
     public void isCertainRobotByIpTest1(){
         String ip="139.210.43.58";

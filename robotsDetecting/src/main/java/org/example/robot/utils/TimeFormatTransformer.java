@@ -7,13 +7,13 @@ import java.util.Date;
 public class TimeFormatTransformer {
     public static Long formatTimeStringToTimeStamp(String formatTimeString){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date = null;
+        Date date;
         try {
             date = simpleDateFormat.parse(formatTimeString);
             return date.getTime();
         } catch (ParseException e) {
             e.printStackTrace();
-            return null;
+            return Long.parseLong("-1");
         }
     }
 }

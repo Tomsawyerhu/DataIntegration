@@ -18,7 +18,6 @@ public class SpiderRobotJudge extends AbstractRobotJudge {
         long minLeak=1000;
         List<Long> timestamps= new ArrayList<>();
         for(ActionInfo actionInfo:actionInfos) {
-            System.out.println(TimeFormatTransformer.formatTimeStringToTimeStamp(actionInfo.getActionTime())/1000);
             if (actionInfo.isGetDetailAction()) {
                 timestamps.add(TimeFormatTransformer.formatTimeStringToTimeStamp(actionInfo.getActionTime()));
             }

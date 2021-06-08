@@ -20,22 +20,42 @@ public class RobotController {
 
     @GetMapping("/attackers")
     public List<String> detectAttackers(){
-        return robotService.getCertainRobots(RobotTypeEnums.ATTACKER);
+        return robotService.getCertainRobots(RobotTypeEnums.ATTACKER,false);
+    }
+
+    @GetMapping("/concurrent/attackers")
+    public List<String> concurrentDetectAttackers(){
+        return robotService.getCertainRobots(RobotTypeEnums.ATTACKER,true);
     }
 
     @GetMapping("/spiders")
     public List<String> detectSpiders(){
-        return robotService.getCertainRobots(RobotTypeEnums.SPIDER);
+        return robotService.getCertainRobots(RobotTypeEnums.SPIDER,false);
+    }
+
+    @GetMapping("/concurrent/spiders")
+    public List<String> concurrentDetectSpiders(){
+        return robotService.getCertainRobots(RobotTypeEnums.SPIDER,true);
     }
 
     @GetMapping("/clickfarmers")
     public List<String> detectClickFarmers(){
-        return robotService.getCertainRobots(RobotTypeEnums.CLICKFARMER);
+        return robotService.getCertainRobots(RobotTypeEnums.CLICKFARMER,false);
+    }
+
+    @GetMapping("/current/clickfarmers")
+    public List<String> currentDetectClickFarmers(){
+        return robotService.getCertainRobots(RobotTypeEnums.CLICKFARMER,true);
     }
 
     @GetMapping("/competitors")
     public List<String> detectOrderCompetitors(){
-        return robotService.getCertainRobots(RobotTypeEnums.COMPETITOR);
+        return robotService.getCertainRobots(RobotTypeEnums.COMPETITOR,false);
+    }
+
+    @GetMapping("/current/competitors")
+    public List<String> currentDetectOrderCompetitors(){
+        return robotService.getCertainRobots(RobotTypeEnums.COMPETITOR,true);
     }
 
     @GetMapping("/users")
@@ -62,5 +82,15 @@ public class RobotController {
         }else if(robotJudgeService.isCertainRobotByIp(ip,RobotTypeEnums.SPIDER)){
             return 2;
         }else{return -1;}
+    }
+
+    @GetMapping("info/ip/{ip}")
+    public String getInfoByIp(@PathVariable(name = "ip")String ip){
+        return robotService.getInfoByIp(ip);
+    }
+
+    @GetMapping("info/userid/{userid}")
+    public String getInfoByUserId(@PathVariable(name = "userid")String userid){
+        return robotService.getInfoByUserId(userid);
     }
 }

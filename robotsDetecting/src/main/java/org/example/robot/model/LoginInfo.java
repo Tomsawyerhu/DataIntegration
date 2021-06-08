@@ -4,25 +4,25 @@ import javax.persistence.Column;
 
 public class LoginInfo {
     @Column(name = "sessionid")
-    private String sessionId;
+    private String sessionId=null;
 
     @Column(name="logintime")
-    private String loginTime;
+    private String loginTime=null;
 
     @Column(name = "ip")
-    private String ip;
+    private String ip=null;
 
     @Column(name = "userid")
-    private String userId;
+    private String userId=null;
 
     @Column(name = "passwd")
-    private String password;
+    private String password=null;
 
     @Column(name = "authcode")
-    private String authCode;
+    private String authCode=null;
 
     @Column(name="success")
-    private int success;
+    private int success=0;
 
     public String getSessionId() {
         return sessionId;
@@ -81,4 +81,17 @@ public class LoginInfo {
     }
 
     public boolean isSuccess(){return success==1;}
+
+    @Override
+    public String toString() {
+        return "LoginInfo{" +
+                "sessionId='" + sessionId + '\'' +
+                ", loginTime='" + loginTime + '\'' +
+                ", ip='" + ip + '\'' +
+                ", userId='" + userId + '\'' +
+                ", password='" + password + '\'' +
+                ", authCode='" + authCode + '\'' +
+                ", success=" + success +
+                '}';
+    }
 }
